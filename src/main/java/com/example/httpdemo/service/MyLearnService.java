@@ -1,0 +1,64 @@
+package com.example.httpdemo.service;
+
+import com.example.httpdemo.bean.*;
+
+import java.util.List;
+
+public interface MyLearnService {
+    List<SpecialList> findAllSpecialList(String userId);
+    List<SpecialTitleList> findAllSpecial();
+    void insertUserSpecial(SpecialList specialList);
+    List<WeekList> findAllWeekList(String userId);
+    List<WeekTitle> findAllWeek();
+    void insertUserWeek(WeekList weekList);
+    void updateIsAnswerByWeek(WeekList weekList);
+    List<Question> findAllChallengeQuestion();
+    List<Question> findAllWeekQuestion();
+    List<Question> findAllDailyQuestion();
+    List<Question> findAllSpecialQuestion();
+    void insertHighScore(Challenge challenges);
+    void updateHighScore(Challenge challenge);
+    String findHighScore(String userId);
+    String findIsAnswerByWeek(WeekList weekList);
+    void updateUserAnswer(UserAnswer userAnswer);
+    void updateUserAnswer5(UserAnswer userAnswer);
+    UserAnswer findUserAnswer5(UserAnswer userAnswer);
+    UserAnswer findUserAnswer(UserAnswer userAnswer);
+    void insertUserAnswer(UserAnswer userAnswer);
+    void insertUserAnswer5(UserAnswer userAnswer);
+    void updateSpecialIsAnswer(SpecialList specialList);
+    void updateSpecialIsOut(SpecialList specialList);
+    EverydayPerformance findEverydayScore(EverydayPerformance everydayPerformance);
+    void insertDailyScore(EverydayPerformance everydayPerformance);
+    void updateDailyScore(EverydayPerformance everydayPerformance);
+    void updatePerformanceInDaily(Performance performance);
+    void updateAnswerNum(Performance performance);
+    void insertWeekScore(EverydayPerformance everydayPerformance);
+    void updateWeekScore(EverydayPerformance everydayPerformance);
+    String findIsAnswerBySpecial(SpecialList specialList);
+    void insertSpecialScore(EverydayPerformance everydayPerformance);
+    void updateSpecialScore(EverydayPerformance everydayPerformance);
+    void insertChallengeScore(EverydayPerformance everydayPerformance);
+    void updateChallengeScore(EverydayPerformance everydayPerformance);
+    Performance findPerformance(String userId);
+    List<Performance> findAllPerformance();
+    void insertPerformance(Performance performance);
+    User findUser(String phone);
+    void insertUser(User user);
+    List<Article> findArticle();
+    Comment findCommentToArticle(int id);
+    List<Integer> findCommentIdByArticle(CommentDepend commentDepend);
+    Integer addCommentToArticle(Comment comment);
+    void insertCommentDep(CommentDepend commentDepend);
+    UserArticle findUserArticle(UserArticle userArticle);
+    void deleteUserArticle(UserArticle userArticle);
+    void insertUserArticle(UserArticle userArticle);
+    List<UserArticle> findUserCollect(String userId);
+    void deleteUserCollect(int id);
+    List<VideoUri> findVideo();
+    Article findArticleById(int id);
+    VideoUri findVideoById(int id);
+    void updateUserName(User user);
+    void updateUserPhone(UserPhone userPhone);
+    void updateUserPas(User user);
+}

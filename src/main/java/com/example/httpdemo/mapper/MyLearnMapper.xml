@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mtbatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.httpdemo.mapper.MyLearnMapper">
+
+	<select id="findAllSpecialList" parameterType="String" resultType="SpecialList">
+		select isAnswer,isOut,specialTitle from specialList where userId=#{userId}
+	</select>
+
+    <select id="findAllSpecial" resultType="SpecialTitleList">
+		select specialTitle from specialTitleList
+	</select>
+
+    <insert id="insertUserSpecial" parameterType="SpecialList">
+		insert into specialList(isAnswer,specialTitle,isOut,userId) values(#{isAnswer},#{specialTitle},#{isOut},#{userId})
+	</insert>
+
+	<select id="findAllWeekList" parameterType="String" resultType="WeekList">
+		select isAnswer,week from weekList where userId=#{userId}
+	</select>
+
+    <select id="findAllWeek" resultType="WeekTitle">
+		select week from weekTitle
+	</select>
+
+    <insert id="insertUserWeek" parameterType="WeekList">
+		insert into weekList(isAnswer,week,userId) values(#{isAnswer},#{week},#{userId})
+	</insert>
+
+	<update id="updateIsAnswerByWeek" parameterType="WeekList">
+		update weekList set isAnswer="已作答" where week=#{week} and userId=#{userId}
+	</update>
+
+	<select id="findAllChallengeQuestion" resultType="Question">
+		select title,optionA,optionB,optionC,optionD,answer1,answer2,answer3,answer4,analysis,type,start,week,specialTitle from Question where answerType="4"
+	</select>
+
+	<insert id="insertHighScore" parameterType="Challenge">
+		insert into challenge(highScore,userId) values(#{highScore},#{userId})
+	</insert>
+
+	<update id="updateHighScore" parameterType="Challenge">
+		update challenge set highScore=#{highScore} where userId=#{userId}
+	</update>
+
+	<select id="findHighScore" parameterType="String" resultType="String">
+		select highScore from challenge where userId=#{userId}
+	</select>
+
+	<select id="findAllWeekQuestion" resultType="Question">
+		select title,optionA,optionB,optionC,optionD,answer1,answer2,answer3,answer4,analysis,type,start,week,answerType,specialTitle from Question where answerType="2"
+	</select>
+
+	<select id="findIsAnswerByWeek" parameterType="WeekList" resultType="String">
+		select isAnswer from weekList where week=#{week} and userId=#{userId}
+	</select>
+
+	<select id="findAllDailyQuestion" resultType="Question">
+		select title,optionA,optionB,optionC,optionD,answer1,answer2,answer3,answer4,analysis,type,start,week,answerType,specialTitle from Question where answerType="1"
+	</select>
+
+	<update id="updateUserAnswer" parameterType="UserAnswer">
+		update specialTemp set userAnswer1=#{userAnswer1},userAnswer2=#{userAnswer2},userAnswer3=#{userAnswer3},userAnswer4=#{userAnswer4},userAnswer5=#{userAnswer5},pageNum=#{pageNum} where specialTitle=#{specialTitle} and userId=#{userId}
+	</update>
+
+	<update id="updateUserAnswer5" parameterType="UserAnswer">
+		update specialAnswer set userAnswer1=#{userAnswer1},userAnswer2=#{userAnswer2},userAnswer3=#{userAnswer3},userAnswer4=#{userAnswer4},userAnswer5=#{userAnswer5} where specialTitle=#{specialTitle} and userId=#{userId}
+	</update>
+
+	<select id="findAllSpecialQuestion" resultType="Question">
+		select title,optionA,optionB,optionC,optionD,answer1,answer2,answer3,answer4,analysis,type,start,week,answerType,specialTitle from Question where answerType="3"
+	</select>
+
+	<select id="findUserAnswer" parameterType="UserAnswer" resultType="UserAnswer">
+		select userAnswer1,userAnswer2,userAnswer3,userAnswer4,userAnswer5,pageNum from specialTemp where specialTitle=#{specialTitle} and userId=#{userId}
+	</select>
+
+	<select id="findUserAnswer5" parameterType="UserAnswer" resultType="UserAnswer">
+		select question1,question2,question3,question4,question5,userAnswer1,userAnswer2,userAnswer3,userAnswer4,userAnswer5 from specialAnswer where specialTitle=#{specialTitle} and userId=#{userId}
+	</select>
+
+    <insert id="insertUserAnswer" parameterType="UserAnswer">
+		insert into specialTemp(userAnswer1,userAnswer2,userAnswer3,userAnswer4,userAnswer5,specialTitle,pageNum,userId) values(#{userAnswer1},#{userAnswer2},#{userAnswer3},#{userAnswer4},#{userAnswer5},#{specialTitle},#{pageNum},#{userId})
+	</insert>
+
+	<insert id="insertUserAnswer5" parameterType="UserAnswer">
+		insert into specialAnswer(question1,question2,question3,question4,question5,userAnswer1,userAnswer2,userAnswer3,userAnswer4,userAnswer5,specialTitle,userId) values(#{question1},#{question2},#{question3},#{question4},#{question5},#{userAnswer1},#{userAnswer2},#{userAnswer3},#{userAnswer4},#{userAnswer5},#{specialTitle},#{userId})
+	</insert>
+
+	<update id="updateSpecialIsAnswer" parameterType="SpecialList">
+		update specialList set isAnswer=#{isAnswer},isOut=#{isOut} where specialTitle=#{specialTitle} and userId=#{userId}
+	</update>
+
+	<update id="updateSpecialIsOut" parameterType="SpecialList">
+		update specialList set isOut=#{isOut} where specialTitle=#{specialTitle} and userId=#{userId}
+	</update>
+
+	<select id="findEverydayScore" parameterType="EverydayPerformance" resultType="EverydayPerformance">
+		select dailyScore,weekScore,specialScore,challengeScore from everydayPerformance where date=#{date} and userId=#{userId}
+	</select>
+
+	<insert id="insertDailyScore" parameterType="EverydayPerformance">
+		insert into everydayPerformance(dailyScore,date,userId) values(#{dailyScore},#{date},#{userId})
+	</insert>
+
+	<update id="updateDailyScore" parameterType="EverydayPerformance">
+		update everydayPerformance set dailyScore=#{dailyScore} where date=#{date} and userId=#{userId}
+	</update>
+
+	<update id="updatePerformanceInDaily" parameterType="Performance">
+		update performance set totalScore=#{totalScore},answerScore=#{answerScore} where userId=#{userId}
+	</update>
+
+	<update id="updateAnswerNum" parameterType="Performance">
+		update performance set answerNum=#{answerNum} where userId=#{userId}
+	</update>
+
+	<insert id="insertWeekScore" parameterType="EverydayPerformance">
+		insert into everydayPerformance(weekScore,date,userId) values(#{weekScore},#{date},#{userId})
+	</insert>
+
+	<update id="updateWeekScore" parameterType="EverydayPerformance">
+		update everydayPerformance set weekScore=#{weekScore} where date=#{date} and userId=#{userId}
+	</update>
+
+	<select id="findIsAnswerBySpecial" parameterType="SpecialList" resultType="String">
+		select isAnswer from specialList where specialTitle=#{specialTitle} and userId=#{userId}
+	</select>
+
+	<insert id="insertSpecialScore" parameterType="EverydayPerformance">
+		insert into everydayPerformance(specialScore,date,userId) values(#{specialScore},#{date},#{userId})
+	</insert>
+
+	<update id="updateSpecialScore" parameterType="EverydayPerformance">
+		update everydayPerformance set specialScore=#{specialScore} where date=#{date} and userId=#{userId}
+	</update>
+
+	<insert id="insertChallengeScore" parameterType="EverydayPerformance">
+		insert into everydayPerformance(challengeScore,date,userId) values(#{challengeScore},#{date},#{userId})
+	</insert>
+
+	<update id="updateChallengeScore" parameterType="EverydayPerformance">
+		update everydayPerformance set challengeScore=#{challengeScore} where date=#{date} and userId=#{userId}
+	</update>
+
+	<select id="findPerformance" parameterType="String" resultType="Performance">
+		select totalScore,answerNum,answerScore from performance where userId=#{userId}
+	</select>
+
+	<select id="findAllPerformance" resultType="Performance">
+		select totalScore,answerNum,answerScore,userId from performance
+	</select>
+
+	<select id="findUser" parameterType="String" resultType="User">
+		select id,phone,name,password from user where phone=#{phone}
+	</select>
+
+	<insert id="insertUser" parameterType="User">
+		insert into user(phone,name,password) values(#{phone},#{name},#{password})
+	</insert>
+
+    <insert id="insertPerformance" parameterType="Performance">
+		insert into performance(totalScore,answerNum,answerScore,userId) values(#{totalScore},#{answerNum},#{answerScore},#{userId})
+	</insert>
+
+	<select id="findArticle" resultType="Article">
+		select id,title,detail,author,firstSentence,commentNum from article
+	</select>
+
+	<select id="findCommentToArticle" parameterType="int" resultType="Comment">
+		select id,reviewer,comment,receiver,receiverCom,replyNum,praiseNum,date from commentTab where id=#{id}
+	</select>
+
+	<select id="findCommentIdByArticle" parameterType="CommentDepend" resultType="int">
+		select sub from commentDepend where owner=#{owner} and type=#{type}
+	</select>
+
+	<insert id="addCommentToArticle">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			select last_insert_id()
+		</selectKey>
+		insert into commentTab(id,reviewer,comment,date) values (#{id},#{reviewer},#{comment},#{date})
+	</insert>
+
+	<insert id="insertCommentDep" parameterType="CommentDepend">
+		insert into commentDepend(owner,sub,type) values(#{owner},#{sub},#{type})
+	</insert>
+
+	<select id="findUserArticle" parameterType="UserArticle" resultType="UserArticle">
+		select id,articleId,userId from userArticle where articleId=#{articleId} and userId=#{userId} and articleType=#{articleType}
+	</select>
+
+	<delete id="deleteUserArticle" parameterType="UserArticle">
+		delete from userArticle where articleId=#{articleId} and userId=#{userId} and articleType=#{articleType}
+	</delete>
+
+	<insert id="insertUserArticle" parameterType="UserArticle">
+		insert into userArticle(articleId,userId,articleType,articleTitle,date) values(#{articleId},#{userId},#{articleType},#{articleTitle},#{date})
+	</insert>
+
+	<select id="findUserCollect" parameterType="String" resultType="UserArticle">
+		select id,articleId,userId,articleType,articleTitle,date from userArticle where userId=#{userId}
+	</select>
+
+	<delete id="deleteUserCollect" parameterType="int">
+		delete from userArticle where id=#{id}
+	</delete>
+
+	<select id="findVideo" resultType="VideoUri">
+		select id,title,uri,videoFlag from video
+	</select>
+
+	<select id="findArticleById" parameterType="int" resultType="Article">
+		select id,title,detail,author,firstSentence,commentNum from article where id=#{id}
+	</select>
+
+	<select id="findVideoById" parameterType="int" resultType="VideoUri">
+		select id,title,uri,videoFlag from video where id=#{id}
+	</select>
+
+	<update id="updateUserName" parameterType="User">
+		update user set name=#{name} where phone=#{phone}
+	</update>
+
+	<update id="updateUserPhone" parameterType="UserPhone">
+		update user set phone=#{newPhone} where phone=#{oldPhone}
+	</update>
+
+	<update id="updateUserPas" parameterType="User">
+		update user set password=#{password} where phone=#{phone}
+	</update>
+
+	<!-- 用于服务器端的数据操作-->
+	<insert id="insertQuestion" parameterType="Question">
+		insert into question(title,optionA,optionB,optionC,optionD,answer1,answer2,answer3,answer4,analysis,type,start,week,specialTitle,answerType) values(#{title},#{optionA},#{optionB},#{optionC},#{optionD},#{answer1},#{answer2},#{answer3},#{answer4},#{analysis},#{type},#{start},#{week},#{specialTitle},#{answerType})
+	</insert>
+
+	<insert id="insertWeek" parameterType="String">
+		insert into weekTitle(week) values(#{week})
+	</insert>
+
+	<select id="findWeekByWeek" parameterType="String" resultType="String">
+		select week from weekTitle where week=#{week}
+	</select>
+
+	<select id="findAllUserPhone" resultType="String">
+		select phone from user
+	</select>
+
+	<insert id="insertWeekToUser" parameterType="WeekList">
+		insert into weekList(week,isAnswer,userId) values(#{week},#{isAnswer},#{userId})
+	</insert>
+
+	<select id="findSpecialBySpecial" parameterType="String" resultType="String">
+		select specialTitle from specialTitleList where specialTitle=#{specialTitle}
+	</select>
+
+	<insert id="insertSpecial" parameterType="String">
+		insert into specialTitleList(specialTitle) values(#{specialTitle})
+	</insert>
+
+	<insert id="insertSpecialToUser" parameterType="SpecialList">
+		insert into specialList(specialTitle,isAnswer,isOut,userId) values(#{specialTitle},#{isAnswer},#{isOut},#{userId})
+	</insert>
+
+	<insert id="insertArticle" parameterType="Article">
+		insert into article(title,detail,firstSentence,author) values(#{title},#{detail},#{firstSentence},#{author})
+	</insert>
+
+	<insert id="insertVideo" parameterType="VideoUri">
+		insert into video(title,uri,videoFlag) values(#{title},#{uri},#{videoFlag})
+	</insert>
+
+</mapper>
